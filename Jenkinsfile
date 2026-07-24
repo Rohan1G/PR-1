@@ -9,45 +9,12 @@ pipeline {
             }
         }
 
-        stage('Terraform Init') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                }
-            }
-        }
-
-        stage('Terraform Validate') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform validate'
-                }
-            }
-        }
-
-        stage('Terraform Plan') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform plan'
-                }
-            }
-        }
-
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform apply -auto-approve'
-                }
-            }
-        }
-
         stage('Verify Tools') {
             steps {
                 sh 'node --version'
                 sh 'npm --version'
                 sh 'docker --version'
                 sh 'docker compose version'
-                sh 'terraform version'
             }
         }
 
@@ -81,7 +48,7 @@ pipeline {
 
     post {
         success {
-            echo 'Infrastructure provisioned and application deployed successfully!'
+            echo 'Application deployed successfully!'
         }
         failure {
             echo 'Pipeline failed!'
